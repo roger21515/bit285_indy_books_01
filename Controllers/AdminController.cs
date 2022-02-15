@@ -34,24 +34,36 @@ namespace IndyBooks.Controllers
                 //(Note: search.Title is the info from the form)
                 
                 results.BookList = results.BookList
-                             .Where(b => b.Title.Contains(searchVM.Title) )
-                             ;
-                // TODO: order the above results by year, starting with the newest
+                             .Where(b => b.Title.Contains(searchVM.Title))
+                             .OrderByDescending (b => b.Year);
+
+                // order the above results by year, starting with the newest DONE?
 
 
             }
 
-            //TODO: Filter the collection by last part of the Author's Name, if given
+            // Filter the collection by last part of the Author's Name, if given
             // (HINT: Use a string method that matches the end of the string,
             //        also you will need to adjust the Search View and ViewModel to collect Author name)
+
+            if (searchVM.AuthorLastName != null)
+                results.BookList = results.BookList
+                    .Where(a => a.Author.EndsWith(searchVM.AuthorLastName));
 
 
 
             //TODO: Filter the collection by items with prices above a low and below a high value, if given
             // (Note: you will need to adjust the Search ViewModel and View to add search fields)
 
+            if (searchVM.MinimumPrice != 0 || searchVM.MaximumPrice != 0)
+            {
+                results.BookList = results.BookList
+                    .Where(p => p.Price >= searchVM.MinimumPrice && p.Price <= searchVM.MaximumPrice)
+                    .Take(5);
+                
+            }
 
-            
+
             // TODO: only include the first 5 books in the SearchResults view
 
 

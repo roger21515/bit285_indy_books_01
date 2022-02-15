@@ -21,7 +21,7 @@ namespace IndyBooks.Data
                 return; //already has data, don't add any more test data
             }
 
-            //  TODO: Create two additional books in the seed data 
+            //  Create two additional books in the seed data 
             //         drop and then update the database using ef
             //
             context.Books.Add(new Book
@@ -865,7 +865,22 @@ namespace IndyBooks.Data
                 Price = 30.00M,
                 Year = "1994"
             });
-
+            context.Books.Add(new Book
+            {
+                Title = "Pickle Rick",
+                Author = "Rick Sanchez",
+                Edition = "3",
+                Price = 13.00M,
+                Year = "2013"
+            });
+            context.Books.Add(new Book
+            {
+                Title = "The Brother's Karasmasov",
+                Author = "Fydor Dostoevsky",
+                Edition = "4",
+                Price = 30.15M,
+                Year = "1897"
+            });
 
             await context.SaveChangesAsync();
         }
